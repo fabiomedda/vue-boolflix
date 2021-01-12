@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <!-- Axios CDN -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <!-- development version, includes helpful console warnings -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <title>Boolflix</title>
+    </head>
+    <body>
+
+        <div id="root">
+
+            <header>
+
+                <div>
+                    <img src="assets/img/boolflix.png" alt="">
+                </div>
+
+                <div>
+                    <input type="text" v-model="search">
+                    <button @click="functionSearch">search</button>
+                </div>
+
+            </header>
+
+            <main>
+                <div v-for="film in result">
+                    <h3>{{film.title}}</h3>
+                    <h3>{{film.original_title}}</h3>
+                    <h3>{{film.original_language}}</h3>
+                    <h4>{{film.vote_average}}</h4>
+                </div>
+            </main>
+
+        </div>
+        
+
+        <script src="assets/js/main.js"></script>
+    </body>
+</html>
