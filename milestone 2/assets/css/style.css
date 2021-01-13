@@ -1,0 +1,55 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    color: white;
+    background-color: darkblue;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    background-color: black;
+    padding: 0 30px;
+}
+
+header img{
+    height: 80px;
+}
+
+main {
+    
+}
+
+.container{
+    display: flex;
+}
+
+.arrow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 70px;
+    padding: 0 20px;
+}
+
+.container_card {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-grow: 6;
+}
+
+.card {
+    padding: 30px 20px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}

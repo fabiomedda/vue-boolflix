@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <!-- Axios CDN -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <!-- development version, includes helpful console warnings -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+            integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+            crossorigin="anonymous" />
+        <title>Boolflix</title>
+    </head>
+    <body>
+
+        <div id="root">
+
+            <header>
+
+                <div>
+                    <img src="assets/img/boolflix.png" alt="">
+                </div>
+
+                <div>
+                    <form @submit.prevent="functionSearch">
+                        <input type="text" v-model="search">
+                    </form>
+                </div>
+
+            </header>
+
+            <main>
+
+                <!-- sezione film -->
+                <h2 v-if="totalPageFilms > 0">Film pagina {{pageFilms}} di {{totalPageFilms}}</h2>
+
+                <div class="container">
+
+                    <div class="arrow" @click="prevPageFilms">
+                        <i v-if="totalPageFilms > 1" class="fas fa-angle-left"></i>
+                    </div>
+
+                    <div class="container_card">
+                        <div v-for="film in resultFilms" class="card">
+                            <h3>{{film.title}}</h3>
+                            <h4>{{film.original_title}}</h4>
+                            <img :src="'./assets/img/' + film.original_language + '.png'" alt="">
+                            <h5>{{film.original_language}}</h5>
+                            <h5>{{film.vote_average}}</h5>
+                            <div>
+                                <i :class="film.voteInt > 0 ? 'fas fa-star' : 'far fa-star'"></i>
+                                <i :class="film.voteInt > 1 ? 'fas fa-star' : 'far fa-star'"></i>
+                                <i :class="film.voteInt > 2 ? 'fas fa-star' : 'far fa-star'"></i>
+                                <i :class="film.voteInt > 3 ? 'fas fa-star' : 'far fa-star'"></i>
+                                <i :class="film.voteInt > 4 ? 'fas fa-star' : 'far fa-star'"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="arrow" @click="nextPageFilms">
+                        <i v-if="totalPageFilms > 1" class="fas fa-angle-right"></i>
+                    </div>
+
+                </div>
+                <!-- //sezione film -->
+
+                <!-- sezione serie tv -->
+
+                <!-- <h2 v-if="totalPage > 0">Serie TV</h2>
+                
+                <div class="container">
+                
+                    <div class="arrow" @click="prevPage">
+                        <i v-if="totalPage > 1" class="fas fa-angle-left"></i>
+                    </div>
+                
+                    <div class="container_card">
+                        <div v-for="film in result" class="card">
+                            <h3>{{film.title}}</h3>
+                            <h4>{{film.original_title}}</h4>
+                            <img :src="'./assets/img/' + film.original_language + '.png'" alt="">
+                            <h5>{{film.original_language}}</h5>
+                            <h5>{{film.vote_average}}</h5>
+                            <div>
+                                <i :class="film.voteInt > 0 ? 'fas fa-star' : 'far fa-star'"></i>
+                                <i :class="film.voteInt > 1 ? 'fas fa-star' : 'far fa-star'"></i>
+                                <i :class="film.voteInt > 2 ? 'fas fa-star' : 'far fa-star'"></i>
+                                <i :class="film.voteInt > 3 ? 'fas fa-star' : 'far fa-star'"></i>
+                                <i :class="film.voteInt > 4 ? 'fas fa-star' : 'far fa-star'"></i>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="arrow" @click="nextPage">
+                        <i v-if="totalPage > 1" class="fas fa-angle-right"></i>
+                    </div>
+                
+                </div> -->
+
+                <!-- //sezione serie tv -->
+
+
+
+                
+
+            </main>
+
+        </div>
+        
+
+        <script src="assets/js/main.js"></script>
+    </body>
+</html>
