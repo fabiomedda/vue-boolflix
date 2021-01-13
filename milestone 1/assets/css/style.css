@@ -21,14 +21,26 @@ header img{
     height: 80px;
 }
 
-main{
+main {
+    display: flex;
+}
+
+.arrow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 70px;
+    padding: 0 20px;
+}
+
+.container_card {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     flex-grow: 6;
 }
 
-main > div{
+.card {
     padding: 30px 20px;
     width: 300px;
     display: flex;
