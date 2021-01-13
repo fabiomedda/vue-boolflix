@@ -9,6 +9,9 @@ body{
     background-color: darkblue;
 }
 
+/*******************
+***section header***
+*******************/
 header{
     display: flex;
     justify-content: space-between;
@@ -21,6 +24,14 @@ header{
 header img{
     height: 80px;
 }
+
+/*******************
+///section header///
+*******************/
+
+/*****************
+***section main*** 
+*****************/
 
 .container{
     display: flex;
@@ -49,3 +60,7 @@ header img{
     align-items: center;
     text-align: center;
 }
+
+/*****************
+///section main/// 
+*****************/
