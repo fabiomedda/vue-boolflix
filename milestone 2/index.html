@@ -65,21 +65,22 @@
 
                 </div>
                 <!-- //sezione film -->
+                
 
                 <!-- sezione serie tv -->
 
-                <!-- <h2 v-if="totalPage > 0">Serie TV</h2>
+                <h2 v-if="totalPageSerieTV > 0">Serie TV pagina {{pageSerieTV}} di {{totalPageSerieTV}}</h2>
                 
                 <div class="container">
                 
-                    <div class="arrow" @click="prevPage">
-                        <i v-if="totalPage > 1" class="fas fa-angle-left"></i>
+                    <div class="arrow" @click="prevPageSerieTV">
+                        <i v-if="totalPageSerieTV > 1" class="fas fa-angle-left"></i>
                     </div>
                 
                     <div class="container_card">
-                        <div v-for="film in result" class="card">
-                            <h3>{{film.title}}</h3>
-                            <h4>{{film.original_title}}</h4>
+                        <div v-for="film in resultSerieTV" class="card">
+                            <h3>{{film.name}}</h3>
+                            <h4>{{film.original_name}}</h4>
                             <img :src="'./assets/img/' + film.original_language + '.png'" alt="">
                             <h5>{{film.original_language}}</h5>
                             <h5>{{film.vote_average}}</h5>
@@ -93,17 +94,13 @@
                         </div>
                     </div>
                 
-                    <div class="arrow" @click="nextPage">
-                        <i v-if="totalPage > 1" class="fas fa-angle-right"></i>
+                    <div class="arrow" @click="nextPageSerieTV">
+                        <i v-if="totalPageSerieTV > 1" class="fas fa-angle-right"></i>
                     </div>
                 
-                </div> -->
+                </div>
 
-                <!-- //sezione serie tv -->
-
-
-
-                
+                <!-- //sezione serie tv -->                
 
             </main>
 

@@ -28,26 +28,46 @@ let root = new Vue ({
         resultFilms: [],
         resultSerieTV: [],
         pageFilms: 1,
+        pageSerieTV: 1,
         totalPageFilms: null,
+        totalPageSerieTV: null,
     },
     methods: {
         functionSearch(){
+            /* chiamata axios film */
             axios.get('https://api.themoviedb.org/3/search/movie?api_key=7fde4ba234d36aa8a95d8a14560d15a2&language=it-IT&query=' + this.search + '&page=' + this.pageFilms)
             .then(response => {
                 console.log(response);
                 this.resultFilms = response.data.results;
+                this.totalPageFilms = null;
                 this.totalPageFilms = response.data.total_pages;
                 this.resultFilms.forEach(element => {
-                    console.log(element);
-                    console.log(element.vote_average);
                     element.voteInt = Math.ceil(element.vote_average / 2);
-                    console.log(element.voteInt);
                 });
             })
             .catch(error => {
                 console.log(error);
             })
+            /* //chiamata axios film */
+
+            /* chiamata axios serie tv */
+            axios.get('https://api.themoviedb.org/3/search/tv?api_key=7fde4ba234d36aa8a95d8a14560d15a2&language=it-IT&query=' + this.search + '&page=' + this.pageSerieTV)
+            .then(response => {
+                console.log(response);
+                this.resultSerieTV = response.data.results;
+                this.totalPageSerieTV = null;
+                this.totalPageSerieTV = response.data.total_pages;
+                this.resultSerieTV.forEach(element => {
+                    element.voteInt = Math.ceil(element.vote_average / 2);
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            })
+            /* chiamata axios serie tv */
+
         },
+        /* next and prev Films */
         nextPageFilms(){
             if (this.pageFilms < this.totalPageFilms) {
                 this.pageFilms++;
@@ -60,6 +80,22 @@ let root = new Vue ({
                 this.functionSearch();
             }
         },
+        /* //next and prev Films */
+
+        /* next and prev serie tv */
+        nextPageSerieTV() {
+            if (this.pageSerieTV < this.totalPageSerieTV) {
+                this.pageSerieTV++;
+                this.functionSearch();
+            }
+        },
+        prevPageSerieTV() {
+            if (this.pageSerieTV > 1) {
+                this.pageSerieTV--;
+                this.functionSearch();
+            }
+        },
+        /* //next and prev serie tv */
     },
     mounted(){
         
