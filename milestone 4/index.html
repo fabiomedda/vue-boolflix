@@ -25,7 +25,7 @@
 
                 <div>
                     <form @submit.prevent="functionSearch">
-                        <input type="text" v-model="search">
+                        <input type="text" v-model="search" placeholder="Cerca su Boolflix">
                     </form>
                 </div>
 
@@ -34,6 +34,7 @@
             <main>
 
                 <!-- sezione film -->
+                <h2 v-if="totalPageFilms == 0">Nessun risultato nella sezione film</h2>
                 <h2 v-if="totalPageFilms > 0">Film pagina {{pageFilms}} di {{totalPageFilms}}</h2>
 
                 <div class="container">
@@ -55,7 +56,7 @@
                                 <h3><span>Titolo: </span>{{film.title}}</h3>
                                 <h4><span>Titolo originale: </span>{{film.original_title}}</h4>
                                 <h5 v-if="!flags.includes(film.original_language)"><span>Lingua originale: </span>{{film.original_language}}</h5>
-                                <div>
+                                <div class="star">
                                     <span>Voto:</span>
                                     <i :class="film.voteInt > 0 ? 'fas fa-star' : 'far fa-star'"></i>
                                     <i :class="film.voteInt > 1 ? 'fas fa-star' : 'far fa-star'"></i>
@@ -65,7 +66,7 @@
                                 </div>
                                 <p v-if="film.overview"><span>Overview:</span> {{film.overview}}</p>
                                 <div>
-                                    <img :src="'./assets/img/' + film.original_language + '.png'" alt="">
+                                    <img v-if="flags.includes(film.original_language)" :src="'./assets/img/' + film.original_language + '.png'" alt="">
                                 </div>
                             </div>
                             
@@ -78,11 +79,20 @@
                     </div>
 
                 </div>
+
+                <div class="numberPages">
+                    <span class="click" @click="firstPageFilms" v-if="pageFilms > 9">1</span>
+                    <span v-if="pageFilms > 9">...</span>
+                    <span class="click" @click="activePagesFilms(page)" :class="page == pageFilms ? 'page_active' : ''" v-if="totalPageFilms >= page && page < (pageFilms +9) && page > (pageFilms -9)" v-for="page in totalPageFilms">{{page}}</span>
+                    <span v-if="totalPageFilms > 8 && (pageFilms + 8) < totalPageFilms">...</span>
+                    <span v-if="totalPageFilms > 0">di</span>
+                    <span class="click" @click="ultimePageFilms" v-if="totalPageFilms > 0">{{totalPageFilms}}</span>
+                </div>
                 <!-- //sezione film -->
                 
 
                 <!-- sezione serie tv -->
-
+                <h2 v-if="totalPageSerieTV == 0">Nessun risultato nella sezione serie tv</h2>
                 <h2 v-if="totalPageSerieTV > 0">Serie TV pagina {{pageSerieTV}} di {{totalPageSerieTV}}</h2>
                 
                 <div class="container">
@@ -92,27 +102,50 @@
                     </div>
                 
                     <div class="container_card">
+
                         <div v-for="serie_tv in resultSerieTV" class="card">
-                            <img :src="'https://image.tmdb.org/t/p/w342' + serie_tv.poster_path" alt="">
-                            <h3>{{serie_tv.name}}</h3>
-                            <h4>{{serie_tv.original_name}}</h4>
-                            <img :src="'./assets/img/' + serie_tv.original_language + '.png'" alt="">
-                            <h5>{{serie_tv.original_language}}</h5>
-                            <h5>{{serie_tv.vote_average}}</h5>
-                            <div>
-                                <i :class="serie_tv.voteInt > 0 ? 'fas fa-star' : 'far fa-star'"></i>
-                                <i :class="serie_tv.voteInt > 1 ? 'fas fa-star' : 'far fa-star'"></i>
-                                <i :class="serie_tv.voteInt > 2 ? 'fas fa-star' : 'far fa-star'"></i>
-                                <i :class="serie_tv.voteInt > 3 ? 'fas fa-star' : 'far fa-star'"></i>
-                                <i :class="serie_tv.voteInt > 4 ? 'fas fa-star' : 'far fa-star'"></i>
+
+
+                            <div class="poster" :class="!serie_tv.poster_path ? 'bg_black' : ''">
+                                <img v-if="serie_tv.poster_path" :src="'https://image.tmdb.org/t/p/w342' + serie_tv.poster_path" alt="">
+                                <h2 v-else>{{serie_tv.name}}</h2>
                             </div>
+                            
+                            <div class="information bg_black">
+                                <h3><span>Titolo: </span>{{serie_tv.name}}</h3>
+                                <h4><span>Titolo originale: </span>{{serie_tv.original_name}}</h4>
+                                <h5 v-if="!flags.includes(serie_tv.original_language)"><span>Lingua originale: </span>{{serie_tv.original_language}}</h5>
+                                <div>
+                                    <span>Voto:</span>
+                                    <i :class="serie_tv.voteInt > 0 ? 'fas fa-star' : 'far fa-star'"></i>
+                                    <i :class="serie_tv.voteInt > 1 ? 'fas fa-star' : 'far fa-star'"></i>
+                                    <i :class="serie_tv.voteInt > 2 ? 'fas fa-star' : 'far fa-star'"></i>
+                                    <i :class="serie_tv.voteInt > 3 ? 'fas fa-star' : 'far fa-star'"></i>
+                                    <i :class="serie_tv.voteInt > 4 ? 'fas fa-star' : 'far fa-star'"></i>
+                                </div>
+                                <p v-if="serie_tv.overview"><span>Overview:</span> {{serie_tv.overview}}</p>
+                                <div>
+                                    <img v-if="flags.includes(serie_tv.original_language)" :src="'./assets/img/' + serie_tv.original_language + '.png'" alt="">
+                                </div>
+                            </div>
+
                         </div>
+
                     </div>
                 
                     <div class="arrow" @click="nextPageSerieTV">
                         <i v-if="totalPageSerieTV > 1" class="fas fa-angle-right"></i>
                     </div>
                 
+                </div>
+
+                <div class="numberPages">
+                    <span class="click" @click="firstPageSerieTv" v-if="pageSerieTV > 9">1</span>
+                    <span v-if="pageSerieTV > 9">...</span>
+                    <span class="click" @click="activePagesSerieTv(page)" :class="page == pageSerieTV ? 'page_active' : ''" v-if="totalPageSerieTV >= page && page < (pageSerieTV +9) && page > (pageSerieTV -9)" v-for="page in totalPageSerieTV">{{page}}</span>
+                    <span v-if="totalPageSerieTV > 8 && (pageSerieTV + 8) < totalPageSerieTV">...</span>
+                    <span v-if="totalPageSerieTV > 0">di</span>
+                    <span class="click" @click="ultimePageSerieTv" v-if="totalPageSerieTV > 0">{{totalPageSerieTV}}</span>
                 </div>
 
                 <!-- //sezione serie tv -->                

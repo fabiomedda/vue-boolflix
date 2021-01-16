@@ -29,6 +29,23 @@ header img{
     height: 80px;
 }
 
+header input{
+    width: 260px;
+    height: 50px;
+    text-indent: 20px;
+    font-size: 25px;
+    color: white;
+    border-radius: 35px;
+    border: none;
+    background-color: rgba(48 48 48 / 0.6);
+    outline: none;
+    font-weight: 600;
+}
+
+header input::placeholder{
+    color: rgb(117, 117, 117);
+}
+
 /*******************
 ///section header///
 *******************/
@@ -42,15 +59,18 @@ main{
 
 main > h2{
     margin-left: 95px;
-    padding: 20px 0;
+    margin-top: 55px;
+    padding: 25px 0;
+    font-size: 35px;
 }
 
 .container{
     display: flex;
+    justify-content: space-between;
 }
 
 .arrow{
-    width: 75px;
+    min-width: 75px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,6 +138,9 @@ main > h2{
     text-overflow: ellipsis;
     max-height: 250px;
     overflow-y: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 12;
+    -webkit-box-orient: vertical;
 }
 
 .information > div:last-of-type{
@@ -127,6 +150,36 @@ main > h2{
 .information span{
     font-size: 1.3em;
 }
+
+.star i{
+    color: yellow;
+}
+
+.numberPages{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.numberPages span{
+    padding: 10px;
+    font-size: 30px;
+}
+
+.numberPages span.click{
+    cursor: pointer;
+}
+
+.numberPages span.click:hover{
+    color: red;
+}
+
+.numberPages .page_active{
+    font-size: 40px;
+    color: red;
+    font-weight: 600;
+}
+
 /*****************
 ///section main/// 
 *****************/

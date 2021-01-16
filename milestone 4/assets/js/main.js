@@ -26,6 +26,7 @@ let root = new Vue ({
     },
     methods: {
         functionSearch(){
+            
             /* chiamata axios film */
             axios.get('https://api.themoviedb.org/3/search/movie?api_key=7fde4ba234d36aa8a95d8a14560d15a2&language=it-IT&query=' + this.search + '&page=' + this.pageFilms)
             .then(response => {
@@ -36,6 +37,10 @@ let root = new Vue ({
                 this.resultFilms.forEach(element => {
                     element.voteInt = Math.ceil(element.vote_average / 2);
                 });
+                if (this.pageFilms > this.totalPageFilms) {
+                    this.pageFilms = 1;
+                    this.functionSearch();
+                }
             })
             .catch(error => {
                 console.log(error);
@@ -52,6 +57,10 @@ let root = new Vue ({
                 this.resultSerieTV.forEach(element => {
                     element.voteInt = Math.ceil(element.vote_average / 2);
                 });
+                if (this.pageSerieTV > this.totalPageSerieTV) {
+                    this.pageSerieTV = 1;
+                    this.functionSearch();
+                }
             })
             .catch(error => {
                 console.log(error);
@@ -88,6 +97,37 @@ let root = new Vue ({
             }
         },
         /* //next and prev serie tv */
+
+        /* methods per impaginazione film */
+        activePagesFilms(page){
+            this.pageFilms = page;
+            this.functionSearch();
+        },
+        ultimePageFilms() {
+            this.pageFilms = this.totalPageFilms;
+            this.functionSearch();
+        },
+        firstPageFilms(){
+            this.pageFilms = 1;
+            this.functionSearch();
+        },
+        /* //methods per impaginazione film */
+
+        /* methods per impaginazione serie tv */
+        activePagesSerieTv(page) {
+            this.pageSerieTV = page;
+            this.functionSearch();
+        },
+        ultimePageSerieTv() {
+            this.pageSerieTV = this.totalPageSerieTV;
+            this.functionSearch();
+        },
+        firstPageSerieTv() {
+            this.pageSerieTV = 1;
+            this.functionSearch();
+        },
+        /* //methods per impaginazione serie tv */
+
     },
     mounted(){
         
